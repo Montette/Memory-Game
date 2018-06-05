@@ -24,11 +24,8 @@ var resultText = document.querySelector('.result');
 const resetGame = ()=> {
     // colors = ['red', 'red', 'green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'yellow', 'yellow'];
 
-    clean()
-    startGame()
-}
+    // clean()
 
-const clean = ()=> {
     activeTile = [];
     activeTile = [];
     score = [];
@@ -41,7 +38,25 @@ const clean = ()=> {
         
         
     })
+
+
+    startGame()
 }
+
+// const clean = ()=> {
+//     activeTile = [];
+//     activeTile = [];
+//     score = [];
+
+//     tiles.forEach(tile => { 
+//         tile.className = '';
+    
+        
+//         tile.className = 'tile'
+        
+        
+//     })
+// }
 
 const enableListener = ()=> {
     let actualTiles = [...document.querySelectorAll('.tile')];
@@ -213,8 +228,9 @@ const hardGame = () => {
     // colors.push('brown', 'brown', 'grey', 'grey');
     // console.log(colors)
     
-    clean();
-    startGame();
+    // clean();
+    // startGame();
+    resetGame();
     hardButton.removeEventListener('click', hardGame)
     // resetGame();
 
