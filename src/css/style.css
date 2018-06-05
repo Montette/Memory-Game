@@ -72,8 +72,9 @@ h1 {
     
 }
 
-.enabled {
+.disabled {
     background-color: rgba(189, 172, 172, 0.877);
+    transition: .8s;
 }
 
 

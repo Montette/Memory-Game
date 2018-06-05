@@ -1,14 +1,18 @@
 
 
 
-let tiles = document.querySelectorAll('.tile');
-tiles = [...tiles];
+
+
+// let tiles = document.querySelectorAll('.tile');
+// tiles = [...tiles];
+let tiles = [];
 
 let colors = ['red', 'red', 'green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'yellow', 'yellow'];
 let colorsHard = ['red', 'red', 'green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'yellow', 'yellow', 'brown', 'brown', 'grey', 'grey'];
+let gameArray = [];
 let activeTile = [];
 let visibleTiles = [];
-let pairs = colors.length/2;
+let pairs = 0;
 let score = 0;
 const resetButton = document.querySelector('.resetGameButton');
 const hardButton = document.querySelector('.hardGameButton');
@@ -28,46 +32,100 @@ const clean = ()=> {
     activeTile = [];
     activeTile = [];
     score = [];
+
     tiles.forEach(tile => { 
         tile.className = '';
+    
+        
         tile.className = 'tile'
         
+        
     })
+}
+
+const enableListener = ()=> {
+    let actualTiles = [...document.querySelectorAll('.tile')];
+    let enabledTiles = actualTiles.filter(el => !el.classList.contains("disabled"));
+    console.log(enabledTiles);
+
+enabledTiles.forEach(el=> {
+    
+    el.addEventListener('click', clicked)
+
+})
+
 }
 
 const clicked = ()=> {
     let tile = event.target;
     tile.classList.remove('hide');
     activeTile.push(tile.className);
+    if(activeTile.length > 2) return
     visibleTiles.push(tile.id);
-    // console.log(visibleTiles);
-    // console.log(activeTile)
+    
+    console.log(visibleTiles);
+    console.log(activeTile)
     tile.removeEventListener('click', clicked);
-    // console.log(score)
+    
+    console.log(visibleTiles);
+    
+    console.log('tile id' + tile.id)
+    
+    // if(a === visibleTiles[1].id) return
+    
     if(activeTile.length === 2){
-        // tiles.forEach(el=> el.removeEventListener('click', clicked))
+        // if(tile.id === visibleTiles[1].id) return
+        tiles.forEach(el=> el.removeEventListener('click', clicked))
+        // if(tile.id === visibleTiles[0].id) return
         if(activeTile[0] == activeTile[1]){
             score ++;
+            console.log('score: ' + score)
             // tile.classList.remove('hide');
             // document.getElementById(visibleTiles[0]).classList.remove('hide');
             // tile.removeEventListener('click', clicked);
             // document.getElementById(visibleTiles[0]).removeEventListener('click', clicked);
             
-            tile.classList.add('enabled');
-            visibleTiles[0].classList.add('enabled');
+            // tile.classList.add('enabled');
+            // visibleTiles[0].classList.add('enabled');
+            setTimeout(()=> {
+            document.getElementById(visibleTiles[0]).classList.add('disabled');
+            document.getElementById(visibleTiles[1]).classList.add('disabled');
+         
             activeTile = [];
             visibleTiles =[];
+           
+            enableListener()
+            if (score === pairs) {
+                modal.classList.add('displayBlock');
+                resultText.innerHTML = 'You won!'
+            }
+            
+       
+           
+        }, 500)
+        // tiles.forEach(el=> el.addEventListener('click', clicked))
+        // tile.addEventListener('click', clicked);
+            // if (score === pairs) {
+            //     modal.classList.add('displayBlock');
+            //     resultText.innerHTML = 'You won!'
+            // }
+
+           
 
          } else { setTimeout(()=>{
             tile.classList.add('hide');
-            tile.addEventListener('click', clicked);
+          
+            // tile.addEventListener('click', clicked);
             // var cl = `.${activeTile[0].split(' ')[1]}`;
             // console.log(cl);
             document.getElementById(visibleTiles[0]).classList.add('hide');
-            document.getElementById(visibleTiles[0]).addEventListener('click', clicked);
+            // document.getElementById(visibleTiles[0]).addEventListener('click', clicked);
             activeTile = [];
             visibleTiles =[];
+            // tiles.forEach(el=> el.addEventListener('click', clicked))
+            enableListener()
         }, 800)
+        // tiles.forEach(el=> el.addEventListener('click', clicked))
         // tile.classList.add('hide');
         
         // if(activeTile[0] == activeTile[1]){
@@ -79,30 +137,52 @@ const clicked = ()=> {
             // activeTile = [];
             // score ++
        
-
+        
         }
-    if (score === pairs) {
-        // modal.className = '';
-        modal.classList.add('displayBlock');
-        resultText.innerHTML = 'You won!'
-    }
-    }
+    // if (score === pairs) {
+    //     // modal.className = '';
+    //     modal.classList.add('displayBlock');
+    //     resultText.innerHTML = 'You won!'
+    // }
+   
+    // tile.addEventListener('click', clicked);
+//     let actualTiles = [...document.querySelectorAll('.tile')];
+//     let enabledTiles = actualTiles.filter(el => !el.classList.contains("disabled"));
+//     console.log(enabledTiles);
+
+// enabledTiles.forEach(el=> {
+    
+//     el.addEventListener('click', clicked)
+
+// })
+
+
 }
 
+
+
+}
+
+
+
 const startGame = ()=> {
-    var tiles = document.querySelectorAll('.tile');
-    tiles = [...tiles];
-    var gameArray = [];
+    let actualTiles = document.querySelectorAll('.tile');
+    tiles = [...actualTiles];
+    
+    // var gameArray = [];
     if(tiles.length === 12){
         console.log(colors)
         gameArray = [...colors];
-        console.log(gameArray)
+        console.log('gameArray: ' + gameArray)
     } else if (tiles.length === 16) {
         gameArray = [...colorsHard];
+        console.log('gameArray: ' + gameArray)
     }
+    pairs = gameArray.length/2;
     // console.log(colors);
     console.log(tiles.length);
-    console.log(gameArray);
+    console.log('gameArray: ' + gameArray);
+    console.log(pairs);
     tiles.forEach(tile=> {
         let color = Math.floor(Math.random()* gameArray.length)
         tile.classList.add(gameArray[color], 'hide');
@@ -128,7 +208,7 @@ const hardGame = () => {
     // let hardArray = document.querySelectorAll('.tile');
     // hardArray = [...hardArray];
 
-
+    
 
     // colors.push('brown', 'brown', 'grey', 'grey');
     // console.log(colors)
@@ -152,4 +232,3 @@ playAgainButton.addEventListener('click', ()=> {
 })
 
 startGame()
-
