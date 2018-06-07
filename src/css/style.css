@@ -146,13 +146,27 @@ h1 {
     
 }
 
-.card__face--back.disabled {
-    /* background-color: rgba(189, 172, 172, 0.877); */
+/* .card__face--back.disabled {
+    background-color: rgba(189, 172, 172, 0.877);
     -webkit-backdrop-filter: blur(4px) saturate(20%);
     backdrop-filter: blur(4px) saturate(20%);
     transition: .8s;
-}
+} */
 
+.layer {
+    /* background-color: rgba(255, 255, 255, 0); */
+    height: 0;
+    width: 0;
+  }
+
+.layer.disabled {
+    backdrop-filter: blur(10px);  
+    -webkit-backdrop-filter: blur(10px);
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+
+}
 /* .disabled:before {
     content: "";
     position: absolute;

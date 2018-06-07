@@ -61,6 +61,7 @@ const resetGame = ()=> {
         // tile.className = tileClasses;
 
         tile.className = 'card__face card__face--back';
+        tile.children[0].classList.remove('disabled');
         
     })
 }, 1000
@@ -91,7 +92,7 @@ const resetGame = ()=> {
 
 const enableListener = ()=> {
     let actualTiles = [...document.querySelectorAll('.card')];
-    let enabledTiles = [...document.querySelectorAll('.card__face--back')].filter(el => !el.classList.contains("disabled"));
+    let enabledTiles = [...document.querySelectorAll('.card__face--back')].filter(el => !el.children[0].classList.contains("disabled"));
     console.log(enabledTiles);
 
 // actualTiles.forEach(el=> {
@@ -113,10 +114,19 @@ const clicked = (event)=> {
     
     let clickedTile = event.target;
     let tile = clickedTile.parentElement;
-if(clickedTile.classList.contains('card__face--front')) {
-    event.target = tile;
-}
+    // let tile;
+// if(clickedTile.classList.contains('card__face--front')) {
+//      tile = clickedTile.parentElement;
+//     event.target = tile;
+// } else if(clickedTile.classList.contains('disabled')) {
+//      tile = clickedTile.parentNode.parentNode;
+//      console.log(tile);
+//      console.log('aaaaa');
+//     event.target = tile;
+
+// }
 console.log(event.target);
+console.log(tile);
 tile.removeEventListener('click', clicked);
     // let frontTile = event.target;
     // let tile = frontTile.parentElement;
@@ -125,6 +135,7 @@ tile.removeEventListener('click', clicked);
     // activeTile.push(tile.className);
     if(activeTile.length > 2) return
     visibleTiles.push(tile.id);
+    // console.log(document.getElementById(visibleTiles[0]).children[1].children[0]);
 
     // let tileBack = document.getElementById(tile.id).lastElementChild;
 
@@ -157,9 +168,11 @@ tile.removeEventListener('click', clicked);
             // tile.classList.add('enabled');
             // visibleTiles[0].classList.add('enabled');
             setTimeout(()=> {
-            document.getElementById(visibleTiles[0]).lastElementChild.classList.add('disabled');
+             
+            // document.getElementById(visibleTiles[0]).lastElementChild.childElement.classList.add('disabled');
+            document.getElementById(visibleTiles[0]).children[1].children[0].classList.add('disabled');
             
-            tileBack.classList.add('disabled');
+            tileBack.children[0].classList.add('disabled');
 
          
             activeTile = [];
