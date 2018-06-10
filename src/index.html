@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Memory Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <!--build:css css/styles.min.css-->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- endbuild -->
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Memory Game</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+        <!--build:css css/styles.min.css-->
+        <link rel="stylesheet" href="css/style.css">
+        <!-- endbuild -->
+    </head>
 
-<body>
+    <body>
 
-    <header class="header">
-        <h1>Memory Game</h1>
-    </header>
-    <div class="container">
-    <!-- <div class="tile" id='1'></div>
+        <header class="header">
+            <h1>Memory Game</h1>
+        </header>
+        <div class="resultsContainer">
+            <div class="clicks"><p>clicks: <span class='clicksCounter'>0</span></p></div>
+            <div class="timer"><p>00 : 00 : 00</p></div>
+        </div>
+        <div class="container">
+            <!-- <div class="tile" id='1'></div>
     <div class="tile" id='2'></div>
     <div class="tile" id='3'></div>
     <div class="tile" id='4'></div>
@@ -30,102 +36,189 @@
     <div class="tile" id='11'></div>
     <div class="tile" id='12'></div> -->
 
+            <div class="scene">
+                <div class="card" id='1'>
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
 
-
-    <div class="scene">
-            <div class="card" id='1'>
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
+            <div class="scene">
+                <div class="card" id="2">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id='3'>
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id='4'>
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id='5'>
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="6">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="7">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="8">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="9">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="10">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="11">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="card" id="12">
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="scene">
-            <div class="card" id="2">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div>
-            </div>
-        </div></div>
-        <div class="scene">
-            <div class="card"id='3'>
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div>
-            </div>
-        </div></div>
-        <div class="scene">
-            <div class="card" id='4'>
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div>
-            </div>
-        </div></div>
-        <div class="scene">
-            <div class="card" id='5'>
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card" id="6">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card" id="7">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card" id="8">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card" id="9">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card" id="10">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card"id="11">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-        <div class="scene">
-            <div class="card" id="12">
-                <div class="card__face card__face--front">front</div>
-                <div class="card__face card__face--back"><div class="layer"></div></div>
-            </div>
-        </div>
-    </div>
-    
+        <div class="navigation">
 
-    <div class="navigation">
-        
-        <button class="resetGameButton">New Game</button>
-        <button class="easyGameButton">Easy</button>
-        <button class="hardGameButton">Hard</button>
-    </div>
+            <button class="resetGameButton button">New Game</button>
+            <button class="easyGameButton button">Easy</button>
+            <button class="mediumGameButton button">Medium</button>
+            <button class="hardGameButton button">Hard</button>
+            <button class="pauseGameButton button">Pause</button>
+        </div>
 
-    <div class="modal">
-        <div class="modalMain">
+        <div class="modal">
+            <div class="modalMain">
+                <h2 class='resultTitle'>Congratulations!</h2>
+                <div class='resultContainer'>
                 <p class="result"></p>
-                <button class="playAgain">Play again</button>
-        </div>
-        
-    </div>
+                <p class="resultInformation"></p>
+            </div>
+                <button class="playAgain button">Play again</button>
+            </div>
 
-    <!-- build:js js/main.min.js -->
-    <script src="js/script.js"></script>
-    <!-- endbuild -->
-</body>
+        </div>
+
+        <!-- build:js js/main.min.js -->
+        <script src="js/script.js"></script>
+        <!-- endbuild -->
+    </body>
 
 </html>

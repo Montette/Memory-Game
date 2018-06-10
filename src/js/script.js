@@ -11,29 +11,129 @@
 let tiles = [];
 let backTiles = [];
 
-let colors = ['red', 'red', 'green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'yellow', 'yellow'];
-let colorsHard = ['red', 'red', 'green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'yellow', 'yellow', 'brown', 'brown', 'grey', 'grey'];
+let images = ['a', 'a', 'b', 'b', 'c', 'c', 'd', 'd', 'e', 'e', 'f', 'f'];
+let imagesMedium = ['a', 'a', 'b', 'b', 'c', 'c', 'd', 'd', 'e', 'e', 'f', 'f', 'g', 'g', 'h', 'h'];
+let imagesHard = ['a', 'a', 'b', 'b', 'c', 'c', 'd', 'd', 'e', 'e', 'f', 'f', 'g', 'g', 'h', 'h', 'i', 'i', 'j', 'j'];
 let gameArray = [];
 let activeTile = [];
 let visibleTiles = [];
 let pairs = 0;
 let score = 0;
 const resetButton = document.querySelector('.resetGameButton');
+const mediumButton = document.querySelector('.mediumGameButton');
+const easyButton = document.querySelector('.easyGameButton');
 const hardButton = document.querySelector('.hardGameButton');
 const playAgainButton = document.querySelector('.playAgain');
+const pauseButton = document.querySelector('.pauseGameButton');
 const modal = document.querySelector('.modal');
-var resultText = document.querySelector('.result');
+const resultText = document.querySelector('.result');
+const resultInformation = document.querySelector('.resultInformation');
+const container = document.querySelector('.container');
+
+let clicksCounter = 0;
+const clicksCounterOutput = document.querySelector('.clicksCounter');
+let running = false;
+let time = 0;
+let timeResult = '';
+let secunds = 0;
+
+const timeOutput = document.querySelector('.timer');
+
+
+
+
+
+const enableListener = ()=> {
+    let actualTiles = [...document.querySelectorAll('.card')];
+    let enabledTiles = [...document.querySelectorAll('.card__face--back')].filter(el => !el.children[0].classList.contains("disabled"));
+    console.log(enabledTiles);
+
+enabledTiles.forEach(el=> {
+    
+    el.parentElement.addEventListener('click', clicked)
+
+})
+
+}
+
+
+const increment=()=> {
+    if (running == true) {
+      setTimeout(function() {
+        time++;
+        let mins = Math.floor(time / 10 / 60);
+        let secs = Math.floor(time / 10 % 60);
+        let hours = Math.floor(time / 10 / 60 / 60);
+        
+        secunds = Math.floor(time / 10);
+        if (mins < 10) {
+          mins = '0' + mins;
+        }
+        if (secs < 10) {
+          secs = '0' + secs;
+        }
+        if (hours < 10) {
+          hours = '0' + hours;
+        }
+        timeResult = hours + ' : ' + mins + ' : ' + secs;
+        timeOutput.innerHTML = timeResult;
+        
+        increment();
+      }, 100)
+    }
+  }
+  
+
+const startTimer =()=> {
+  if (running == false) {
+    running = true;
+    increment();
+  }
+}
+
+const resetTimer =()=> {
+  running = false;
+  time = 0;
+  timeOutput.innerText = '00 : 00 : 00';
+}
+
+const pauseTimer = ()=> {
+    pauseButton.classList.toggle('active');
+    running = !running;
+    console.log(running);
+    if(!running) {
+        tiles.forEach(el=> el.removeEventListener('click', clicked))
+    } else {
+        enableListener();
+    }
+    increment();
+    // tiles.forEach(el=> el.removeEventListener('click', clicked));
+  }
+  
+
+
+
+
+
+
+
+
 
 
 const resetGame = ()=> {
     // colors = ['red', 'red', 'green', 'green', 'blue', 'blue', 'purple', 'purple', 'orange', 'orange', 'yellow', 'yellow'];
 
     // clean()
-
+    resetTimer();
+    pauseButton.classList.remove('active');
+    // easyButton.classList.remove('active');
+    // hardButton.classList.remove('active');
+    // mediumButton.classList.remove('active');
+    clicksCounter = 0;
+    clicksCounterOutput.innerHTML = clicksCounter;
     activeTile = [];
     visibleTiles = [];
     score = 0;
-
 
     tiles.forEach(tile => {
        
@@ -42,7 +142,9 @@ const resetGame = ()=> {
         
         
     })
-    setTimeout( ()=>  {backTiles.forEach(tile => { 
+
+    // setTimeout( ()=>  {
+        backTiles.forEach(tile => { 
         // tile.className = '';
         
 
@@ -61,12 +163,12 @@ const resetGame = ()=> {
         // tile.className = tileClasses;
 
         tile.className = 'card__face card__face--back';
-        tile.children[0].classList.remove('disabled');
+        tile.children[0].classList.remove('color');
         
     })
-}, 1000
+// }, 500
 
-)
+
  
 
     
@@ -90,30 +192,27 @@ const resetGame = ()=> {
 //     })
 // }
 
-const enableListener = ()=> {
-    let actualTiles = [...document.querySelectorAll('.card')];
-    let enabledTiles = [...document.querySelectorAll('.card__face--back')].filter(el => !el.children[0].classList.contains("disabled"));
-    console.log(enabledTiles);
+// const enableListener = ()=> {
+//     let actualTiles = [...document.querySelectorAll('.card')];
+//     let enabledTiles = [...document.querySelectorAll('.card__face--back')].filter(el => !el.children[0].classList.contains("disabled"));
+//     console.log(enabledTiles);
 
-// actualTiles.forEach(el=> {
+// enabledTiles.forEach(el=> {
     
-//     el.addEventListener('click', clicked)
+//     el.parentElement.addEventListener('click', clicked)
 
 // })
 
-enabledTiles.forEach(el=> {
-    
-    el.parentElement.addEventListener('click', clicked)
-
-})
-
-
-}
+// }
 
 const clicked = (event)=> {
+    console.log(secunds);
+    clicksCounter++;
+    clicksCounterOutput.innerHTML = clicksCounter;
     
-    let clickedTile = event.target;
-    let tile = clickedTile.parentElement;
+    // let clickedTile = event.target;
+    // let tile = clickedTile.parentElement;
+    let tile = event.currentTarget;
     // let tile;
 // if(clickedTile.classList.contains('card__face--front')) {
 //      tile = clickedTile.parentElement;
@@ -170,9 +269,12 @@ tile.removeEventListener('click', clicked);
             setTimeout(()=> {
              
             // document.getElementById(visibleTiles[0]).lastElementChild.childElement.classList.add('disabled');
-            document.getElementById(visibleTiles[0]).children[1].children[0].classList.add('disabled');
+            document.getElementById(visibleTiles[0]).children[1].children[0].classList.add('color');
+            document.getElementById(visibleTiles[0]).children[1].classList.add('disabled');
             
-            tileBack.children[0].classList.add('disabled');
+            
+            tileBack.children[0].classList.add('color');
+            tileBack.classList.add('disabled');
 
          
             activeTile = [];
@@ -180,8 +282,112 @@ tile.removeEventListener('click', clicked);
            
             enableListener()
             if (score === pairs) {
-                modal.classList.add('displayBlock');
-                resultText.innerHTML = 'You won!'
+                pauseTimer();
+
+               
+                let gameResult = {
+                    'easyTime': '',
+                    'easyTimeToDisplay': '',
+                    'easyClicks': '',
+                    'mediumTime': '',
+                    'mediumTimeToDisplay': '',
+                    'mediumClicks': '',
+                    'hardTime': '',
+                    'hardTimeToDisplay': '',
+                    'hardClicks': ''
+
+                };
+                if(pairs === 6 ) {
+                   
+                //      gameResult = {
+                //         'easyTime': secunds,
+                //         'easyTimeToDisplay': timeResult,
+                //         'easyClicks': clicksCounter
+                 
+                // }
+                    gameResult.easyTime = secunds;
+                    gameResult.easyTimeToDisplay = timeResult;
+                    gameResult.easyClicks = clicksCounter;
+                
+
+                } else if (pairs === 8 ) {
+                   
+                    gameResult.mediumTime = secunds;
+                    gameResult.mediumTimeToDisplay = timeResult;
+                    gameResult.mediumClicks = clicksCounter;
+                } else if (pairs === 10) {
+                 
+                    gameResult.hardTime = secunds;
+                    gameResult.hardTimeToDisplay = timeResult;
+                    gameResult.hardClicks = clicksCounter;
+                }
+
+
+                
+                setTimeout(()=> {
+                    modal.classList.add('displayBlock');
+                    let loadResults = JSON.parse(localStorage.getItem('myElement'));
+                   
+                    console.log(loadResults);
+                    // resultText.innerHTML = `You won! Your time: ${timeResult}, your clickes: ${clicksCounter}.
+                    // Your previous result: ${loadResults.easyTimeToDisplay}`;
+
+                    // let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+
+                    if(pairs === 6 ) {
+                        
+                        // let previousResult = loadResults.easyTime > secunds ? `Gratulation, you beat your record in easy level! Your previous record:${loadResults.easyTimeToDisplay}`: `Last time you was better! Your record on easy level: ${loadResults.easyTimeToDisplay}`;
+                        let previousResult;
+                         if (loadResults == null || loadResults.easyTime == '') {
+                            previousResult = '';
+                            let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+                         } else if(loadResults.easyTime > secunds) {
+                            previousResult = `Gratulation, you beat your record in the easy level! Your previous record:${loadResults.easyTimeToDisplay}`;
+                            let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+
+                        } else {
+                            previousResult = `You don't beat your record! Your best time in the easy level: ${loadResults.easyTimeToDisplay}`;
+                        }
+                         resultText.innerHTML = `You won! Your time: ${timeResult}, your clickes: ${clicksCounter}.`;
+                         resultInformation.innerHTML = previousResult;
+   
+                   } else if (pairs === 8 ) {
+                     
+                    let previousResult;
+                    if (loadResults == null || loadResults.mediumTime == '') {
+                       previousResult = '';
+                       let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+                    } else if(loadResults.mediumTime > secunds) {
+                       previousResult = `Gratulation, you beat your record in the medium level! Your previous record: ${loadResults.mediumTimeToDisplay}`;
+                       let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+
+                   } else {
+                       previousResult = `You don't beat your record. Your best time in the medium level: ${loadResults.mediumTimeToDisplay}`;
+                   }
+                    resultText.innerHTML = `You won! Your time: ${timeResult}, your clickes: ${clicksCounter}.`
+                    resultInformation.innerHTML = previousResult;
+
+
+
+                   } else if (pairs === 10) {
+                    let previousResult;
+                    if (loadResults == null || loadResults.hardTime == '') {
+                       previousResult = '';
+                       let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+                    } else if(loadResults.hardTime > secunds) {
+                       previousResult = `Gratulation, you beat your record in the hard level! Your previous record: ${loadResults.hardTimeToDisplay}`;
+                       let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+
+                   } else {
+                       previousResult = `You don't beat your record! Your best time in the hard level: ${loadResults.hardTimeToDisplay}`;
+                   }
+                    resultText.innerHTML = `You won! Your time: ${timeResult}, your clickes: ${clicksCounter}.`
+                    resultInformation.innerHTML = previousResult;
+                   }
+                    
+                //    let savedResults = localStorage.setItem('myElement', JSON.stringify(gameResult));
+                }, 1000)
+               
             }
             
        
@@ -257,82 +463,164 @@ tile.removeEventListener('click', clicked);
 const startGame = ()=> {
     let actualTiles = document.querySelectorAll('.card');
     tiles = [...actualTiles];
-    // let actualTiles = document.querySelectorAll('.card__face--front');
-    // tiles = [...actualTiles];
     let actualBackTiles = document.querySelectorAll('.card__face--back');
     backTiles = [...actualBackTiles];
     
-    // var gameArray = [];
+
     if(tiles.length === 12){
-        console.log(colors)
-        gameArray = [...colors];
-        console.log('gameArray: ' + gameArray)
+     
+        gameArray = [...images];
+        console.log('gameArray: ' + gameArray);
+        easyButton.classList.add('active');
     } else if (tiles.length === 16) {
-        gameArray = [...colorsHard];
-        console.log('gameArray: ' + gameArray)
+        gameArray = [...imagesMedium];
+        console.log('gameArray: ' + gameArray);
+        console.log(gameArray.length)
+    } else if (tiles.length === 20) {
+        gameArray = [...imagesHard];
+        console.log('gameArray: ' + gameArray);
+        console.log(gameArray.length)
     }
     pairs = gameArray.length/2;
-    // console.log(colors);
+
     console.log(tiles.length);
     console.log('gameArray: ' + gameArray);
     console.log(pairs);
+
+    // let shuffleArray = imagesHard.sort(function() { return 0.5 - Math.random() });
+
+    //     if(tiles.length === 12){
+    //      shuffleArray.length = 12;   
+        
+    //     console.log('gameArray: ' + gameArray)
+    // } else if (tiles.length === 16) {
+    //     shuffleArray.length = 16;  
+    // } else if (tiles.length === 20) {
+    //     shuffleArray.length = 20;  
+    // }
+    // gameArray = [...shuffleArray];
+    // console.log('gameArray: ' + gameArray)
+    // pairs = gameArray.length/2;
+
+
+
+
     tiles.forEach(tile=> {
-        // let color = Math.floor(Math.random()* gameArray.length)
-        // tile.classList.add(gameArray[color], 'hide');
-        // gameArray.splice(color, 1);
 
-        // tile.removeEventListener('click', this.clicked);
-        // tile.addEventListener('click', clicked.bind(this, tile))
         tile.addEventListener('click', clicked)
-
-        // let Aa = function () {
-
-        //     this.el = tile;
-        //     this.clicked = this.clicked.bind(this);
-        //     this.addEvents();
-        //   }
-          
-        //   Aa.prototype.addEvents = function () {
-        //     this.el.addEventListener('click', this.clicked, tile);
-        //   }
-          
-        //   Aa.prototype.removeEvents = function () {
-        //     this.el.removeEventListener('click', this.clicked);
-        //   }
-          
-        //   Button.prototype.clickHandler = function () {
-          
-        //   }
-
-
-
-
 
     })  
     backTiles.forEach(backTile=> {
-        let color = Math.floor(Math.random()* gameArray.length);
-        backTile.classList.add(gameArray[color]);
-        gameArray.splice(color, 1);
+        let randomImage = Math.floor(Math.random()* gameArray.length);
+        backTile.classList.add(gameArray[randomImage]);
+        gameArray.splice(randomImage, 1);
 
     })
 
-
-// tiles.forEach(tile=> {
-//     tile.addEventListener('click', clicked)
-// })
+    
+    startTimer();
+    
 
 }
 
-const hardGame = () => {
+
+
+
+
+
+
+const mediumGame = () => {
+    let tiles = document.querySelectorAll('.scene');
+    if(tiles.length === 12)   {
     for(i=0; i < 4; i++) {
-        var hardTile = document.createElement('div');
-        hardTile.className = 'tile';
-        hardTile.id = 13 + i;
+        let mediumTile = document.createElement('div');
+        mediumTile.className = 'scene';
+        let mediumTileBackId = 13 + i;
+        mediumTile.id = `scene${1 + i}`;
+        mediumTile.innerHTML = `
+        
+            <div class="card" id=${mediumTileBackId}>
+                <div class="card__face card__face--front">
+                    <span class="corner"></span>
+                    <span class="corner"></span>
+                    <span class="corner"></span>
+                    <span class="corner"></span>
+                </div>
+                <div class="card__face card__face--back">
+                    <div class="layer"></div>
+                </div>
+            </div>
     
-        document.querySelector('.container').appendChild(hardTile);
+        `;
+  
+
+
+    
+        let aaa = document.querySelector('.container').appendChild(mediumTile);
     }
-    // let hardArray = document.querySelectorAll('.tile');
-    // hardArray = [...hardArray];
+} else if (tiles.length === 20) {
+    for(i = 5; i <= 8; i++) {
+        let elId = `scene${i}`
+        let removeEl = document.getElementById(elId);
+        container.removeChild(removeEl);
+    }
+} else if (tiles.length === 16) {
+    return
+}
+
+
+
+resetGame();
+mediumButton.classList.add('active');
+easyButton.classList.remove('active');
+hardButton.classList.remove('active');
+}
+
+
+    const hardGame = () => {
+        let backIdCounter = 0;
+        let sceneId = 0;
+        let counter = 0;
+
+        let tiles = document.querySelectorAll('.scene');
+        if(tiles.length === 12) {
+            counter = 8;
+            backIdCounter = 13;
+            sceneId = 1;
+        } else if(tiles.length === 16) {
+            counter = 4;
+            backIdCounter = 17;
+            sceneId = 5;
+        } else if(tiles.length === 20) {
+            return
+        }
+
+
+        for(i = 0; i < counter; i++) {
+            let hardTile = document.createElement('div');
+            hardTile.className = 'scene';
+            let hardTileBackId = backIdCounter + i;
+            hardTile.id = `scene${sceneId + i}`;
+            hardTile.innerHTML = `
+            
+                <div class="card" id=${hardTileBackId}>
+                    <div class="card__face card__face--front">
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                        <span class="corner"></span>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="layer"></div>
+                    </div>
+                </div>
+        
+            `;
+        
+            let bbb = document.querySelector('.container').appendChild(hardTile);
+        }
+    // let MediumArray = document.querySelectorAll('.tile');
+    // MediumArray = [...MediumArray];
 
     
 
@@ -341,21 +629,77 @@ const hardGame = () => {
     
     // clean();
     // startGame();
+
+ 
     resetGame();
-    hardButton.removeEventListener('click', hardGame)
+    // mediumButton.removeEventListener('click', mediumGame);
+    // easyButton.addEventListener('click', easyGame);
     // resetGame();
+
+    
+hardButton.classList.add('active');
+easyButton.classList.remove('active');
+mediumButton.classList.remove('active');
+
 
 }
 
+const easyGame = () => {
+    let tiles = document.querySelectorAll('.scene');
+    let IdCounter = 0;
+    let counter = 0;
+    let sceneId = 0;
+    console.log(tiles.length);
+    if (tiles.length === 16) {
+     counter = 1;
+     idCounter = 4;
+        
+     for(let i = 1; i <=4; i++) {
+        let elId = `scene${i}`;
+        console.log(elId);
+        let removeEl = document.getElementById(elId);
+        container.removeChild(removeEl);
+    }
+        // easyButton.removeEventListener('click', easyGame);
+        // mediumButton.addEventListener('click', mediumGame)
+    } else if(tiles.length === 20) {
+        counter = 17;
+     idCounter = 20;
+     for(let i = 1; i <= 8; i++) {
+        let elId = `scene${i}`
+        let removeEl = document.getElementById(elId);
+        container.removeChild(removeEl);
+    }
+    } else {
+        return
+    }
+
+    // for(i = counter; i <= IdCounter; i++) {
+    //     let elId = `scene${i}`;
+    //     let removeEl = document.getElementById(elId);
+    //     container.removeChild(removeEl);
+    // }
+    resetGame();
+    easyButton.classList.add('active');
+    hardButton.classList.remove('active');
+    mediumButton.classList.remove('active');
+}
+
 resetButton.addEventListener('click', resetGame);
-hardButton.addEventListener('click', hardGame)
+mediumButton.addEventListener('click', mediumGame);
+easyButton.addEventListener('click', easyGame);
+hardButton.addEventListener('click', hardGame);
+pauseButton.addEventListener('click', pauseTimer);
+
 
 
 playAgainButton.addEventListener('click', ()=> {
     // modal.className = '';
     // modal.classList.add('modal', 'displayNone')
     modal.classList.remove('displayBlock');
-    resetGame()
+    resetGame();
+   
 })
 
-startGame()
+
+// startGame() 
