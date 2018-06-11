@@ -1,8 +1,12 @@
-
 $buttonColor: rgb(163, 163, 190);
 $buttonColor: rgb(186, 187, 123);
 $buttonColor: rgb(193, 194, 142);
 
+@mixin background {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 body {
     margin: 0;
@@ -12,21 +16,100 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: rgb(126, 126, 126);
+    font-family: 'Signika', sans-serif;
 }
 
-h1 {
+.header__title {
     text-align: center;
-    color: white;
-    font-family: Helvetica, Arial, Sans-Serif;
+    margin-bottom: 60px;
+    font-size: 45px;
+    color: lighten($buttonColor, 45%);
+    text-shadow: -2px -3px 0 darken($buttonColor, 40%);  
 }
 
 .container {
     display: flex;
     flex-wrap: wrap;
-    max-width: 1050px;
+    max-width: 1090px;
     width: auto;
     margin: 30px auto;
+    justify-content: space-around;
+}
+
+.results {
+    display: flex;
     justify-content: space-between;
+    width: 300px;
+    color: lighten(saturate(lighten($buttonColor, 15%), 35%), 7%);
+    font-weight: bold;
+    font-size: 20px;
+
+    &__para {
+        margin: 0;
+    }
+   
+
+}
+
+
+.button {
+    outline: none;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    text-shadow: 0 -2px 0 darken($buttonColor, 20%), 0 1px 1px lighten($buttonColor, 20%);
+    box-sizing: border-box;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    color: darken($buttonColor, 10%);
+    height: 35px;
+    line-height: 5px;
+    padding: 15px 16px;
+    display: inline-block;
+    width: auto;
+    background: linear-gradient(to bottom, saturate(lighten($buttonColor, 15%), 35%) 0%, saturate(lighten($buttonColor, 12%), 15%) 26%, $buttonColor 100%);
+    border-radius: 5px;
+    border-top: 1px solid lighten($buttonColor, 22%);
+    border-bottom: 1px solid lighten($buttonColor, 20%);
+    top: 0;
+    transition: all .25s ease-out;
+    position: relative;
+    &:hover {
+        background: linear-gradient(to bottom, lighten(saturate(lighten($buttonColor, 15%), 35%), 7%) 0%, lighten(saturate(lighten($buttonColor, 12%), 15%), 7%) 26%, lighten($buttonColor, 7%) 100%);
+    }
+    &:active {
+        top: 4px;
+        text-shadow: 0 -2px 0 darken($buttonColor, 0%), 0 1px 1px lighten($buttonColor, 20%), 0 0 4px white;
+        color: lighten($buttonColor, 45%);
+        &:before {
+            top: .8px;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, .7), 0 3px 9px rgba(0, 0, 0, .2);
+        }
+    }
+    &:before {
+        display: inline-block;
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        top: 5px;
+        border-radius: 5px;
+        height: 33px;
+        background: linear-gradient(to top, saturate(darken($buttonColor, 40%), 15%) 0%, saturate(darken($buttonColor, 25%), 10%) 6px);
+        transition: all .25s ease-out;
+        box-shadow: 0 1px 0 2px rgba(0, 0, 0, .3), 0 5px 6.4px rgba(0, 0, 0, .5), 0 (6*1.8+px) 9px rgba(0, 0, 0, .2);
+    }
+    &.active {
+        top: 4px;
+        text-shadow: 0 -2px 0 darken($buttonColor, 0%), 0 1px 1px lighten($buttonColor, 20%), 0 0 4px white;
+        color: lighten($buttonColor, 45%);
+        &:before {
+            top: .8px;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, .7), 0 3px 9px rgba(0, 0, 0, .2);
+        }
+    }
 }
 
 .scene {
@@ -36,6 +119,8 @@ h1 {
     width: 240px;
     perspective: 600px;
     margin-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .card {
@@ -46,151 +131,113 @@ h1 {
     transform-style: preserve-3d;
     transform-origin: center right;
     transition: 1s;
-    box-shadow: 0 8px 30px rgba(14, 21, 47, 0.6);
+    box-shadow: 0 8px 30px rgba(14, 21, 47, 0.7);
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-repeat: no-repeat;
+        background-position: -250px -250px, 0 0;
+        background-image: linear-gradient( top left, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.1) 37%, rgba(255, 255, 255, 0.8) 45%, rgba(255, 255, 255, 0.0) 50%);
+        background-size: 250% 250%, 100% 100%;
+        transition: background-position 0s ease;
+        transform-style: preserve-3d;
+        transform-origin: center right;
+        transition: 1s;
+        z-index: 100;
+    }
+    &:hover {
+        transform: scale(1.03);
+        box-shadow: 0 45px 80px rgba(28, 30, 39, 0.4), 0 16px 30px rgba(28, 30, 39, 0.4);
+    }
+    &:hover:before {
+        background-position: 0 0, 0 0;
+        transition-duration: 0.5s;
+    }
+    &.is-flipped {
+        transform: translateX(-100%) rotateY(-180deg) scale(1.02);
+        box-shadow: 0 45px 80px rgba(28, 30, 39, 0.4), 0 16px 30px rgba(28, 30, 39, 0.4);
+    }
+    &.is-flipped:before {
+        background-position: 0 0, 0 0;
+    }
+    &__face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        &--front {
+            background-image: url(../images/bcg4-2.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 1px;
+            transition: 5s;
+        }
+        &--back {
+            transform: rotateY(180deg);
+        }
+    }
 }
 
-.card:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-repeat: no-repeat;
-    background-position: -250px -250px, 0 0;
-    background-image: linear-gradient( top left, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.1) 37%, rgba(255, 255, 255, 0.8) 45%, rgba(255, 255, 255, 0.0) 50%);
-    background-size: 250% 250%, 100% 100%;
-    transition: background-position 0s ease;
-    transform-style: preserve-3d;
-    transform-origin: center right;
-    transition: 1s;
-    z-index: 100;
-}
-
-.card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 45px 80px rgba(28, 30, 39, 0.4), 0 16px 30px rgba(28, 30, 39, 0.4);
-}
-
-.card:hover:before {
-    background-position: 0 0, 0 0;
-    transition-duration: 0.5s;
-}
-
-
-.card.is-flipped {
-    transform: translateX(-100%) rotateY(-180deg) scale(1.02);
-    box-shadow: 0 45px 80px rgba(28, 30, 39, 0.4), 0 16px 30px rgba(28, 30, 39, 0.4);
-}
-
-
-.card__face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-}
-
-.card__face--front {
-
-    color: white;
-    // background: repeating-linear-gradient( 135deg, rgba(48, 47, 52, .3), rgb(68, 68, 68) 1px, rgba(13, 12, 14, 0.3) 1px);
-    background-image: url(https://www.freevector.com/uploads/vector/preview/12987/FreeVector-Gray-Floral-Pattern.jpg);
-  
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 1px;
-    transition: 5s;
-}
-
-.card__face--back {
-    transform: rotateY(180deg);
-}
 
 
 .a {
-    background-color: red;
     background-image: url(../images/sea.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .b {
-    background-color: red;
     background-image: url(../images/ginger.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .c {
-    background-color: red;
     background-image: url(../images/dog.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .d {
-    background-color: red;
     background-image: url(../images/city.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .e {
-    background-color: red;
     background-image: url(../images/cup.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .f {
-    background-color: red;
     background-image: url(../images/mountain.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();;
 }
 
 .g {
     background-image: url(../images/shadow.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .h {
     background-image: url(../images/moto.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .i {
     background-image: url(../images/guitar.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
 
 .j {
     background-image: url(../images/tigers.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @include background();
 }
-
-
 
 .layer {
     height: 100%;
     width: 100%;
 }
-
 
 .modal {
     position: fixed;
@@ -200,6 +247,30 @@ h1 {
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
     display: none;
+    &__main {
+        position: fixed;
+        background: white;
+        width: 60%;
+        height: 500px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 60px 50px;
+        font-size: 20px;
+        text-align: center;
+    }
+    &__title {
+        color: saturate(darken($buttonColor, 40%), 15%);
+    }
+    &__container {
+        margin-bottom: 100px;
+        color: rgb(90, 90, 90);
+    }
 }
 
 .displayBlock {
@@ -210,30 +281,6 @@ h1 {
     display: none;
 }
 
-.modalMain {
-    position: fixed;
-    background: white;
-    width: 60%;
-    height: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding: 60px 50px;
-    font-size: 20px;
-    text-align: center;
-}
-.resultTitle {
-    color: saturate(darken($buttonColor,40%),15%);
-}
-
-.resultContainer {
-    margin-bottom: 100px;
-}
 .disabled {
     animation-name: pulse;
     animation-duration: 1s;
@@ -247,94 +294,6 @@ h1 {
     animation-delay: .2s;
     animation-fill-mode: forwards;
 }
-
-
-
-
-.button {
-
-    outline: none;
-    cursor:pointer;
-  margin-left:5px;
-  margin-bottom:15px;
-  text-shadow:0 -2px 0 darken($buttonColor,20%),0 1px 1px lighten($buttonColor,20%) ;
-  box-sizing:border-box;
-  font-size:18px;
-  font-family: Helvetica, Arial, Sans-Serif;
-  text-decoration:none;
-  font-weight:bold;
-  color:darken($buttonColor,10%);;
-//   &:visited {
-//     color:darken($buttonColor,10%);;
-//   }
-  height:35px;
-  line-height:5px;
-  padding: 15px 16px;
-  display:inline-block;
-  width:auto;
-  background: linear-gradient(to bottom,
-    saturate(lighten($buttonColor,15%),35%) 0%,
-    saturate(lighten($buttonColor,12%),15%) 26%,
-    $buttonColor 100%);
-  border-radius:5px;
-  border-top:1px solid lighten($buttonColor,22%);
-  border-bottom:1px solid lighten($buttonColor,20%);
-//   border-right: none;
-//   border-left: none;
- top:0;
-  transition:all .25s ease-out;
-  position:relative;
-}
-.button:hover {
-  background: linear-gradient(to bottom,
-    lighten(saturate(lighten($buttonColor,15%),35%),7%) 0%,
-    lighten(saturate(lighten($buttonColor,12%),15%),7%) 26%,
-    lighten($buttonColor,7%) 100%);
-}
-.button:active {
-  top:4px;
-       text-shadow:0 -2px 0 darken($buttonColor,0%),0 1px 1px lighten($buttonColor,20%), 0 0 4px white ;
-  color:lighten($buttonColor,45%);
-  &:before {
-    top:.8px;
-    box-shadow: 0 3px 3px rgba(0,0,0,.7),0 3px 9px rgba(0,0,0,.2);
-
-  }
-}
-
-.button.active {
-    top:4px;
-         text-shadow:0 -2px 0 darken($buttonColor,0%),0 1px 1px lighten($buttonColor,20%), 0 0 4px white ;
-    color:lighten($buttonColor,45%);
-    &:before {
-      top:.8px;
-      box-shadow: 0 3px 3px rgba(0,0,0,.7),0 3px 9px rgba(0,0,0,.2);
-  
-    }
-  }
-
-.button:before {
-  display:inline-block;
-  content:'';
-  position:absolute;
-  left:0;
-  right:0;
-  z-index:-1;
-  top:5px;
-  border-radius:5px;
-  height:33px;
-  background: linear-gradient(to top,
-    saturate(darken($buttonColor,40%),15%) 0%,
-    saturate(darken($buttonColor,25%),10%) 6px);
-    transition:all .25s ease-out;
-  box-shadow:
-    0 1px 0 2px rgba(0,0,0,.3),
-    0 5px 6.4px rgba(0,0,0,.5),
-    0 (6*1.8+px) 9px rgba(0,0,0,.2);
-}
-
-
-
 
 @keyframes pulse {
     from {
@@ -359,4 +318,3 @@ h1 {
         background-color: rgba(0, 0, 0, .5);
     }
 }
-
