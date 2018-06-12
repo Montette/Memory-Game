@@ -34,6 +34,9 @@ body {
   margin: 30px auto;
   -ms-flex-pack: distribute;
       justify-content: space-around; }
+  @media (max-width: 1400px) {
+    .container {
+      max-width: 1000px; } }
 
 .results {
   display: -webkit-box;
@@ -122,6 +125,14 @@ body {
   margin-bottom: 30px;
   margin-left: 10px;
   margin-right: 10px; }
+  @media (max-width: 1400px) {
+    .scene {
+      height: 140px;
+      max-width: 225px;
+      width: 225px;
+      margin-bottom: 20px;
+      margin-left: 5px;
+      margin-right: 5px; } }
 
 .card {
   position: relative;
@@ -180,8 +191,9 @@ body {
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden; }
     .card__face--front {
-      background-image: url(../images/bcg4-2.png);
+      background-image: url(../images/bcg1.png);
       background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
       border-radius: 1px;
       -webkit-transition: 5s;
@@ -197,7 +209,7 @@ body {
   background-repeat: no-repeat; }
 
 .b {
-  background-image: url(../images/ginger.jpeg);
+  background-image: url(../images/moto.jpeg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; }
@@ -215,7 +227,7 @@ body {
   background-repeat: no-repeat; }
 
 .e {
-  background-image: url(../images/cup.jpeg);
+  background-image: url(../images/shadow.jpeg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; }
@@ -227,13 +239,13 @@ body {
   background-repeat: no-repeat; }
 
 .g {
-  background-image: url(../images/shadow.jpeg);
+  background-image: url(../images/cup.jpeg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; }
 
 .h {
-  background-image: url(../images/moto.jpeg);
+  background-image: url(../images/ginger.jpeg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat; }

@@ -1,12 +1,11 @@
-$buttonColor: rgb(163, 163, 190);
-$buttonColor: rgb(186, 187, 123);
-$buttonColor: rgb(193, 194, 142);
 
+$buttonColor: rgb(193, 194, 142);
 @mixin background {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 
 body {
     margin: 0;
@@ -24,7 +23,7 @@ body {
     margin-bottom: 60px;
     font-size: 45px;
     color: lighten($buttonColor, 45%);
-    text-shadow: -2px -3px 0 darken($buttonColor, 40%);  
+    text-shadow: -2px -3px 0 darken($buttonColor, 40%);
 }
 
 .container {
@@ -34,6 +33,9 @@ body {
     width: auto;
     margin: 30px auto;
     justify-content: space-around;
+    @media (max-width: 1400px) {
+        max-width: 1000px;
+    }
 }
 
 .results {
@@ -43,14 +45,10 @@ body {
     color: lighten(saturate(lighten($buttonColor, 15%), 35%), 7%);
     font-weight: bold;
     font-size: 20px;
-
     &__para {
         margin: 0;
     }
-   
-
 }
-
 
 .button {
     outline: none;
@@ -121,6 +119,14 @@ body {
     margin-bottom: 30px;
     margin-left: 10px;
     margin-right: 10px;
+    @media (max-width: 1400px) {
+        height: 140px;
+        max-width: 225px;
+        width: 225px;
+        margin-bottom: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 }
 
 .card {
@@ -170,8 +176,9 @@ body {
         height: 100%;
         backface-visibility: hidden;
         &--front {
-            background-image: url(../images/bcg4-2.png);
+            background-image: url(../images/bcg1.png);
             background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
             border-radius: 1px;
             transition: 5s;
@@ -182,15 +189,13 @@ body {
     }
 }
 
-
-
 .a {
     background-image: url(../images/sea.jpg);
     @include background();
 }
 
 .b {
-    background-image: url(../images/ginger.jpeg);
+    background-image: url(../images/moto.jpeg);
     @include background();
 }
 
@@ -205,22 +210,23 @@ body {
 }
 
 .e {
-    background-image: url(../images/cup.jpeg);
+    background-image: url(../images/shadow.jpeg);
     @include background();
 }
 
 .f {
     background-image: url(../images/mountain.jpeg);
-    @include background();;
+    @include background();
+    ;
 }
 
 .g {
-    background-image: url(../images/shadow.jpeg);
+    background-image: url(../images/cup.jpeg);
     @include background();
 }
 
 .h {
-    background-image: url(../images/moto.jpeg);
+    background-image: url(../images/ginger.jpeg);
     @include background();
 }
 
