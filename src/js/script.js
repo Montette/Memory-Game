@@ -265,10 +265,6 @@ const mediumGame = () => {
         
             <div class="card" id=${mediumTileBackId}>
                 <div class="card__face card__face--front">
-                    <span class="corner"></span>
-                    <span class="corner"></span>
-                    <span class="corner"></span>
-                    <span class="corner"></span>
                 </div>
                 <div class="card__face card__face--back">
                     <div class="layer"></div>
@@ -321,10 +317,6 @@ const hardGame = () => {
             
                 <div class="card" id=${hardTileBackId}>
                     <div class="card__face card__face--front">
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
                     </div>
                     <div class="card__face card__face--back">
                         <div class="layer"></div>
